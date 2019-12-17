@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { TextField, Button, Typography, Contianer, AppBar } from '@material-ui/core'
+import { login } from '../redux/actions'
 
-import { Redirect } from 'react-router'
-import { TextField, Button, Container } from '@material-ui/core'
+
+
 
 class LoginPage extends Component {
   state = {
@@ -10,43 +12,55 @@ class LoginPage extends Component {
   }
 
   handleTextChange = (e) => {
-    const state = { ...this.state }
-    state[e.target.name] = e.target.value
-    this.setState(state)
+    const newState = { ...this.state }
+    newState[e.target.id] = e.target.value
+    this.setState(newState)
   }
 
-  login = (e) => {
-    e.preventDefault()
-    document.cookie = "loggedIn=true"
-    window.location.replace("/")
+  handleLogin = (e, {user}) => {
+    e.preventDefault();
+    document.cookie = "loggedIn=true";
+    login();
   }
 
   render() {
     return (
-      <div className="Login">
-        <Container maxWidth="sm">
-          <form className="login-form" onSubmit={this.login}>
+      <div className="Login-container">
+        <AppBar position = 'static'>
+          <Typography>Login</Typography>
+        </AppBar>
+        <form onSubmit = {this.handleLogin} className = 'login-form'>
             <TextField
-              required
-              onChange={this.handleTextChange}
-              value={this.state.username}
-              name="username"
-              label="Username"
-              type="text" />
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                onChange={this.handleTextChange} 
+             />
             <TextField
-              required
-              onChange={this.handleTextChange}
-              value={this.state.password}
-              name="password"
-              label="Password"
-              type="password" />
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={this.handleTextChange} 
+             />
             <Button
               type="submit"
+              fullwidth
               className="login-button"
               variant="contained"
-              color="primary">Login</Button>
-          </form>
-        </Container>
+              color="primary"
+              >Login
+            </Button>
+        </form>
       </div>
     );
   }

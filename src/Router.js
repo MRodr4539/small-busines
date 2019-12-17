@@ -1,22 +1,38 @@
-import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import Listing from './Components/Listing';
-import Details from './Components/Details';
-import LoginPage from './Components/LoginPage';
-import Home from './Components/Home'
+import React from 'react'
+import { Switch, Route, Redirect } from 'react-router'
+import cookie from 'cookie'
+import Listings from './containers/Listings'
+import Listing from './containers/Listing'
+import Login from './containers/LoginPage'
+import Add from './containers/Adding'
+import user from './redux/reducers'
 
-function Router(){
-    return(
-    
-        <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/Listing' component={Listing} />
-            <Route path='/Details' component={Details} />
-            <Route path='/Login' component={LoginPage} />
-        </Switch>
-   
-        
+
+const Router = (props) => {
+  const checkAuth = () => {
+    const cookies = cookie.parse(document.cookie)
+    return cookies["loggedIn"] ? true : false
+  }
+  
+  const ProtectedRoute = ({component: Component, ...rest}) => {
+    return (
+        <Route
+        {...rest}
+        render={(props) => checkAuth()
+            ? <Component {...props} />
+            : <Redirect to="/login" />}
+        />
     )
-}
+  }
+  
+  return (
+    <Switch>
+      <Route exact path="/" component={Listings}/>
+      <Route path="/listing/:id" component={Listing}/>
+      <Route signIn={props.signIn} path="/login" component={Login}/>
+      <ProtectedRoute path="/add" component={Add}/>
+    </Switch>
+  );
+};
 
 export default Router;
