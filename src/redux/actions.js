@@ -13,16 +13,3 @@ export const deleteListing = (index) => {
     }
 }
 
-export const login = (user) => {
-    return{
-        type: "LOGIN_COMPLETE",
-        value: user
-    }
-}
-
-export const logout = (user) => {
-    return{
-        type: "LOGOUT_COMPLETE",
-        value: user
-    }
-}

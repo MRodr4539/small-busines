@@ -5,10 +5,10 @@ import Listings from './containers/Listings'
 import Listing from './containers/Listing'
 import Login from './containers/LoginPage'
 import Add from './containers/Adding'
-import user from './redux/reducers'
+// import user from './redux/reducers'
 
 
-const Router = (props) => {
+const Router = () => {
   const checkAuth = () => {
     const cookies = cookie.parse(document.cookie)
     return cookies["loggedIn"] ? true : false
@@ -29,7 +29,7 @@ const Router = (props) => {
     <Switch>
       <Route exact path="/" component={Listings}/>
       <Route path="/listing/:id" component={Listing}/>
-      <Route signIn={props.signIn} path="/login" component={Login}/>
+      <Route path="/login" component={Login}/>
       <ProtectedRoute path="/add" component={Add}/>
     </Switch>
   );

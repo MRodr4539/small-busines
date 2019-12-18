@@ -10,6 +10,7 @@ class Adding extends Component {
     }
 
     handleTextChange = (e) => {
+        e.preventDefault()
         const newState = {...this.state}
         newState[e.target.id] = e.target.value
         this.setState(newState)
@@ -17,19 +18,12 @@ class Adding extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
-        const newListing = {...this.state}
-        newListing.id = this.props.listingTotal + 1
-        this.props.addListing(newListing)
+        const listing = {...this.state}
+        listing.id = this.props.listingTotal + 1
+        this.props.addListing(listing)
+        this.props.history.push('/')
     }
 
-    componentDidUpdate = (prevProps, prevState) => {
-        this.setState({
-            name: '',
-            address: '',
-            hours: '',
-            description: ''
-        })
-    }
 
     render(){
         return(
