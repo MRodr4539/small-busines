@@ -39,8 +39,9 @@ const Navigation = (props) => {
                 </li>
               </>
             ):(
-              <li className="nav-list-item">
-              <Link to="/" style={navStyle}>Login</Link>
+              <li className="nav-list-item"
+                >
+              <Link to="/login" style={navStyle}>Login</Link>
             </li>
             )}
           </ul>
